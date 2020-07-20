@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  myapp_nginx:
+    build: "./nginx"
+    container_name: myapp_nginx
+    ports:
+      - "8282:80"
+    volumes:
+      - ../www:/var/www
+      - ../logs:/var/log/nginx
+      - ./nginx/conf/myapp.conf:/etc/nginx/conf.d/myapp.conf
+    depends_on:
+      - myapp_php
+
+  myapp_php:
+    build: ./php
+    container_name: myapp_php
+    links:
+      - myapp_mongo
+    volumes:
+      - ../www:/var/www
+
+  myapp_mongo:
+    image: mongo:latest
+    container_name: myapp_mongo
+    ports:
+      - "27017:27017"
+    expose:
+      - "27017"
