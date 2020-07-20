@@ -7,7 +7,7 @@ services:
     ports:
       - "8282:80"
     volumes:
-      - ../www:/var/www
+      - ../app:/var/www/
       - ../logs:/var/log/nginx
       - ./nginx/conf/myapp.conf:/etc/nginx/conf.d/myapp.conf
     depends_on:
@@ -19,7 +19,8 @@ services:
     links:
       - myapp_mongo
     volumes:
-      - ../www:/var/www
+      - ../app:/var/www/
+    working_dir: /var/www
 
   myapp_mongo:
     image: mongo:latest
