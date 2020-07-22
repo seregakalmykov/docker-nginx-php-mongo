@@ -26,6 +26,10 @@ RUN docker-php-ext-install gd \
     && echo "extension=mcrypt.so" >> /usr/local/etc/php/conf.d/mcrypt.ini \
     && docker-php-ext-enable mcrypt
 
+RUN docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
+    && docker-php-ext-enable intl
+
 # mongodb
 RUN pecl install mongodb \
 		&& echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
