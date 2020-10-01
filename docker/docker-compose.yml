@@ -18,6 +18,7 @@ services:
     container_name: myapp_php
     links:
       - myapp_mongo
+      - myapp_mysql
     volumes:
       - ../app:/var/www/
     working_dir: /var/www
@@ -29,3 +30,25 @@ services:
       - "27017:27017"
     expose:
       - "27017"
+
+  myapp_mysql:
+    container_name: myapp_mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mm
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+
+  myapp_phpmyadmin:
+    container_name: myapp_phpmyadmin
+    image: phpmyadmin/phpmyadmin:4.7
+    links:
+      - myapp_mysql
+    environment:
+      PMA_HOST: myapp_mysql
+      PMA_PORT: 3306
+    ports:
+      - '8383:80'

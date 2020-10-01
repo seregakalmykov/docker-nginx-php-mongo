@@ -34,6 +34,8 @@ RUN docker-php-ext-configure intl \
 RUN pecl install mongodb \
 		&& echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
 
+RUN docker-php-ext-install mysqli
+
 # composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
