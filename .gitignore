@@ -1,3 +1,6 @@
 /.idea
 /app
 /logs
+/flomaster*
+/multimart*
+/parser*
